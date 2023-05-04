@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+    height: 100vh;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
