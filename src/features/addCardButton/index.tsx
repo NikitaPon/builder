@@ -1,17 +1,14 @@
-import { useCards, cardSelectors } from 'widgets/CardList/model';
-
-import { defaultCard, generateCardId } from 'shared/mocks/cards';
+import { addCardButtonModel } from './model';
 
 export const AddCardButton = () => {
-    const addCard = useCards(cardSelectors.addCard);
+    const { events } = addCardButtonModel;
 
-    const addCardClick = () => {
-        const id = generateCardId();
-        addCard({ ...defaultCard, id: `rect-${id}` });
+    const onClick = () => {
+        events.addCard();
     };
 
     return (
-        <button className="w-full p-3 border border-cyan-300" onClick={addCardClick}>
+        <button className="w-full p-3 border border-cyan-300" onClick={onClick}>
             Add card
         </button>
     );

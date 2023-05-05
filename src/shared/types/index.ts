@@ -6,9 +6,14 @@ export type OnEvents = {
     onDragMove: (evt: KonvaEventObject<MouseEvent>) => void;
 };
 
-export type Link = LinkProps & { parentCardId: CardProps['id']; childCardId: CardProps['id'] };
+export type Link = LinkProps & { parentCardId: TCard['id']; childCardId: TCard['id'] };
 
-export type CardProps = Required<Pick<RectConfig, 'id' | 'x' | 'y' | 'width' | 'height'>> & { selected: boolean };
+export type TCard = Required<Pick<RectConfig, 'id' | 'x' | 'y' | 'width' | 'height'>> & {
+    selected: boolean;
+    relateTo: string[];
+    articles: string[];
+    intents: string[];
+};
 
 export type LinkProps = {
     id: string;
@@ -101,3 +106,13 @@ export type Component =
     | LinkComponent;
 
 export type Answer = Array<Component>;
+
+type Scenario = {
+    name: string;
+    intents: string[] | undefined;
+    answer: Answer;
+    relate_to: string[];
+    articles: string[];
+};
+
+export type Scenarios = Scenario[];

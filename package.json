@@ -13,12 +13,13 @@
         "@fortawesome/fontawesome-svg-core": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
+        "effector": "^22.8.2",
+        "effector-react": "^22.5.1",
         "immer": "^10.0.1",
         "konva": "^9.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-konva": "^18.2.7",
-        "zustand": "^4.3.7"
+        "react-konva": "^18.2.7"
     },
     "devDependencies": {
         "@types/node": "^18.16.3",

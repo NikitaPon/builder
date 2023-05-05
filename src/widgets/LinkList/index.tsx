@@ -1,9 +1,9 @@
 import { Link } from 'entities/Link';
 
-import { useLinks, linkSelectors } from './model';
+import { LinkModel } from './model';
 
 export const LinkList = () => {
-    const links = useLinks(linkSelectors.links);
+    const links = LinkModel.selectors.useLinks();
 
     return (
         <>

@@ -1,17 +1,22 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { KonvaEventObject } from 'konva/lib/Node';
 import { FC } from 'react';
 import { Rect, Group, Text } from 'react-konva';
 
-import { useContext, contextSelectors } from 'shared/components/ContextMenu/model';
-import { CardProps, OnEvents } from 'shared/types';
+import { TCard } from 'shared/types';
 
-//@ts-ignore
-export const Card: FC<CardProps & OnEvents> = ({ id, x, y, width, height, selected, intents, onClick, onDragMove }) => {
-    const addContext = useContext(contextSelectors.addContext);
-    const baseBorderColor = 'rgb(103, 232, 249)';
-    const activeBorderColor = 'rgb(255 126 125)';
-    const hoverBorderColor = 'rgb(220 104 255)';
+import { cardModel } from './model';
+
+type CardProps = {
+    card: TCard;
+};
+
+const baseBorderColor = 'rgb(103, 232, 249)';
+const activeBorderColor = 'rgb(255 126 125)';
+const hoverBorderColor = 'rgb(220 104 255)';
+
+export const Card: FC<CardProps> = ({ card }) => {
+    const { id, x, y, width, height, selected } = card;
+    const { events } = cardModel;
     const stroke = selected ? activeBorderColor : baseBorderColor;
 
     const onMouseEnter = (e: KonvaEventObject<MouseEvent>) => {
@@ -28,13 +33,18 @@ export const Card: FC<CardProps & OnEvents> = ({ id, x, y, width, height, select
 
     const onCardClick = (e: KonvaEventObject<MouseEvent>) => {
         if (e.evt.button === 0) {
-            console.log('onCardClick', e);
+            events.clickCard(card);
         }
     };
 
     const onContextMenu = (e: KonvaEventObject<PointerEvent>) => {
         e.evt.preventDefault();
-        addContext({ id, x: e.evt.clientX, y: e.evt.clientY });
+        events.contextClickCard({ ...card, x: e.evt.clientX, y: e.evt.clientY });
+    };
+
+    const onDragMove = (e: KonvaEventObject<DragEvent>) => {
+        const { x, y } = e.target.position();
+        events.moveCard({ ...card, x, y });
     };
 
     return (
@@ -61,8 +71,8 @@ export const Card: FC<CardProps & OnEvents> = ({ id, x, y, width, height, select
             />
             <Text x={x + 10} y={y + 10} text="name:" />
             <Text x={x + 50} y={y + 10} text={id} />
-            <Text x={x + 10} y={y + 30} text="[intents]:" />
-            <Text x={x + 60} y={y + 30} width={130} text={intents} />
+            {/* <Text x={x + 10} y={y + 30} text="[intents]:" />
+            <Text x={x + 60} y={y + 30} width={130} text={intents} /> */}
         </Group>
     );
 };

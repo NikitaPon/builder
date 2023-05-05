@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { faRobot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useCards, cardSelectors } from 'widgets/CardList/model';
+import { cardListModel } from 'widgets/CardList/model';
 
 import { BotMessageProps, Component, ComponentTypes } from 'shared/types';
 
@@ -49,12 +49,8 @@ const parseAnswer = (answer: BotMessageProps['answer'], onClick: BotMessageProps
 };
 
 export const BotMessage: FC<BotMessageProps> = ({ onClick }) => {
-    const selectedCardId = useCards(cardSelectors.selectedCardId);
-    const findCard = useCards(cardSelectors.findCard);
-
-    if (!selectedCardId) return null;
-
-    const selectedCard = findCard(selectedCardId);
+    const { selectors } = cardListModel;
+    const selectedCard = selectors.useSelectedCard();
 
     if (!selectedCard) return null;
 
